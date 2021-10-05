@@ -14,6 +14,18 @@ const pool = new Pool({
   database: "pets",
 });
 
+app.post("/pets", (req, res) => {
+  const name = req.body.name;
+
+  const sql = 'insert into animals (name) values($1) \
+  returning *';
+
+  return pool.query(sql, [name])
+    .then(result => {
+      res.json(result.rows[0]);
+    })
+    .catch(err => console.log(err.message));
+});
 
 app.get("/pets", (req, res) => {
   const sql = "select pets.*, owners.name as owner, \
