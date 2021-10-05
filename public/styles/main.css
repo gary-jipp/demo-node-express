@@ -1,0 +1,43 @@
+body {
+  font-family: Arial;
+  background-color: #eee;
+  margin: 1em;
+}
+
+h1 {
+  color: #244751;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  padding: 5px;
+  margin: 2px;
+  width: 26em;
+  background-color: #ddd;
+}
+
+li.private,
+li.send {
+  color: green;
+}
+
+li.ack {
+  color: blue;
+}
+
+li a {
+  color: grey;
+}
+
+li:hover {
+  background-color: darkolivegreen;
+  color: white;
+}
+
+li:hover a {
+  color: white;
+}
