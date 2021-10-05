@@ -6,9 +6,9 @@ const getPets = function(client) {
   join owners on owner_id=owners.id \
   join animals on animal_id=animals.id";
 
-  client.query(sql)
+  return client.query(sql)
     .then(res => {
-      client.end();
+      // client.end();
       return res.rows;
       // console.log(res.rows);
     })
@@ -27,3 +27,9 @@ client.connect();
 
 const result = getPets(client);
 console.log(result);
+
+getPets(client)
+  .then(result => {
+    console.log(result);
+    client.end();
+  });
