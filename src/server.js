@@ -19,8 +19,7 @@ app.get("/pets", (req, res) => {
   const sql = "select pets.*, owners.name as owner, \
     animals.name as animal from pets \
     join owners on owner_id=owners.id \
-    join a
-    nimals on animal_id=animals.id";
+    join animals on animal_id=animals.id";
 
   return pool.query(sql)
     .then(result => {
