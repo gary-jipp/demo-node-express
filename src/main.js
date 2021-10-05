@@ -1,6 +1,5 @@
 
 const getPets = function(client, name) {
-
   const sql = "select pets.*, owners.name as owner, \
     animals.name as animal from pets \
     join owners on owner_id=owners.id \
@@ -15,7 +14,6 @@ const getPets = function(client, name) {
 };
 
 const getAnimals = function(client, name) {
-
   // const sql = `select * from animals where name=${name}`;
   // const sql = `select * from animals where name=\'${name}\'`;
   const sql = `select * from animals where name=$1`;
@@ -28,7 +26,6 @@ const getAnimals = function(client, name) {
 };
 
 const addAnimal = function(client, name) {
-
   const sql = 'insert into animals (name) values($1) \
     returning *';
 
