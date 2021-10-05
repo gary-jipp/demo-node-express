@@ -1,4 +1,3 @@
-
 const { Client } = require("pg");
 const client = new Client({
   user: "labber",
@@ -9,16 +8,17 @@ const client = new Client({
 
 client.connect();
 
-// using Callback
-client.query("select * from pets", (err, res) => {
-  if (err) {
-    return console.log(err.message);
-  }
-  console.log(res.rows);
-});
+// const sql = "select * from pets \
+// join owners on owner_id=owners.id \
+// join animals on animal_id=animals.id";
+
+const sql = "select pets.*, owners.name as owner, \
+  animals.name as animal from pets \
+  join owners on owner_id=owners.id \
+  join animals on animal_id=animals.id";
 
 // using Promise (preferred)
-client.query("select * from pets")
+client.query(sql)
   .then(res => {
     console.log(res.rows);
     client.end();
