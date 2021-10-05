@@ -1,3 +1,20 @@
+
+const getPets = function(client) {
+
+  const sql = "select pets.*, owners.name as owner, \
+  animals.name as animal from pets \
+  join owners on owner_id=owners.id \
+  join animals on animal_id=animals.id";
+
+  client.query(sql)
+    .then(res => {
+      client.end();
+      return res.rows;
+      // console.log(res.rows);
+    })
+    .catch(err => console.log(err.message));
+};
+
 const { Client } = require("pg");
 const client = new Client({
   user: "labber",
@@ -8,19 +25,5 @@ const client = new Client({
 
 client.connect();
 
-// const sql = "select * from pets \
-// join owners on owner_id=owners.id \
-// join animals on animal_id=animals.id";
-
-const sql = "select pets.*, owners.name as owner, \
-  animals.name as animal from pets \
-  join owners on owner_id=owners.id \
-  join animals on animal_id=animals.id";
-
-// using Promise (preferred)
-client.query(sql)
-  .then(res => {
-    console.log(res.rows);
-    client.end();
-  })
-  .catch(err => console.log(err.message));
+const result = getPets(client);
+console.log(result);
