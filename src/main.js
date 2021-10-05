@@ -18,12 +18,14 @@ const getPets = function(client, name) {
 
 const getAnimals = function(client, name) {
 
-  const sql = "select * from animals where name=$1";
+  // const sql = `select * from animals where name=${name}`;
+  // const sql = `select * from animals where name=\'${name}\'`;
+  const sql = `select * from animals where name=$1`;
 
   return client.query(sql, [name])
     .then(res => {
       // client.end();
-      return res.rows;
+      return res.rows[0];
       // console.log(res.rows);
     })
     .catch(err => console.log(err.message));
@@ -39,13 +41,9 @@ const client = new Client({
 
 client.connect();
 
-getPets(client, "Bruno")
-  .then(result => {
-    console.log(result);
-  });
-
 const args = process.argv.slice(2);
 getAnimals(client, args[0])
   .then(result => {
     console.log(result);
+    client.end();
   });
