@@ -9,9 +9,7 @@ const getPets = function(client, name) {
 
   return client.query(sql, [name])
     .then(res => {
-      // client.end();
       return res.rows;
-      // console.log(res.rows);
     })
     .catch(err => console.log(err.message));
 };
@@ -24,9 +22,19 @@ const getAnimals = function(client, name) {
 
   return client.query(sql, [name])
     .then(res => {
-      // client.end();
       return res.rows[0];
-      // console.log(res.rows);
+    })
+    .catch(err => console.log(err.message));
+};
+
+const addAnimal = function(client, name) {
+
+  const sql = 'insert into animals (name) values($1) \
+    returning *';
+
+  return client.query(sql, [name])
+    .then(res => {
+      return res.rows[0];
     })
     .catch(err => console.log(err.message));
 };
@@ -42,7 +50,7 @@ const client = new Client({
 client.connect();
 
 const args = process.argv.slice(2);
-getAnimals(client, args[0])
+addAnimal(client, args[0])
   .then(result => {
     console.log(result);
     client.end();
