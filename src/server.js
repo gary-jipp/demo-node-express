@@ -1,10 +1,9 @@
 const express = require('express');
-const pool = require('./database/connect');
-
 
 const app = express();
 const port = process.env.PORT || 8000;
 
+const pool = require('./database/connect');
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
