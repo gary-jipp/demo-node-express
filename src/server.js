@@ -3,10 +3,10 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 8000;
 
-const pool = require('./database/connect');
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
+const pool = require('./database/connect');
 const getPets = require('./database/pets');
 const { getAnimals, addAnimal } = require('./database/animals');
 
