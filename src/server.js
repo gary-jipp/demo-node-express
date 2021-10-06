@@ -7,12 +7,12 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 const pool = require('./database/connect');
-const getPets = require('./database/pets');
-const { getAnimals, addAnimal } = require('./database/animals');
+const { getAnimals, addAnimal } = require('./database/animals')(pool);
+const { getPets } = require('./database/pets')(pool);
 
 app.post("/animals", (req, res) => {
   const name = req.body.name;
-  addAnimal(pool, name)
+  addAnimal(name)
     .then(row => {
       res.json(row);
     })
@@ -20,7 +20,7 @@ app.post("/animals", (req, res) => {
 });
 
 app.get("/animals", (req, res) => {
-  getAnimals(pool)
+  getAnimals()
     .then(rows => {
       res.json(rows);
     })

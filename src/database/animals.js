@@ -1,24 +1,26 @@
 
-const getAnimals = function(pool) {
-  console.log("getPets");
+module.exports = function(pool) {
 
-  const sql = "select * from animals";
+  const getAnimals = function() {
+    console.log("getPets");
 
-  return pool.query(sql)
-    .then(res => {
-      return res.rows;
-    });
+    const sql = "select * from animals";
+
+    return pool.query(sql)
+      .then(res => {
+        return res.rows;
+      });
+  };
+
+  const addAnimal = function(name) {
+    const sql = 'insert into animals (name) values ($1) returning *';
+
+    return pool.query(sql, [name])
+      .then(res => {
+        console.log(res.rows);
+        return res.rows[0];
+      });
+  };
+
+  return { getAnimals, addAnimal };
 };
-
-
-const addAnimal = function(pool, name) {
-  const sql = 'insert into animals (name) values ($1) returning *';
-
-  return pool.query(sql, [name])
-    .then(res => {
-      console.log(res.rows);
-      return res.rows[0];
-    });
-};
-
-module.exports = { getAnimals, addAnimal };
