@@ -1,6 +1,6 @@
 const express = require('express');
 const pool = require('./database/connect');
-const getPets = require('./database/pets');
+
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -8,24 +8,30 @@ const port = process.env.PORT || 8000;
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
+const getPets = require('./database/pets');
+const { getAnimals, addAnimal } = require('./database/animals');
 
-app.post("/pets", (req, res) => {
+app.post("/animals", (req, res) => {
   const name = req.body.name;
+  addAnimal(pool, name)
+    .then(row => {
+      res.json(row);
+    })
+    .catch(err => console.log(err.message));
+});
 
-  const sql = 'insert into animals (name) values($1) \
-  returning *';
-
-  return pool.query(sql, [name])
-    .then(result => {
-      res.json(result.rows[0]);
+app.get("/animals", (req, res) => {
+  getAnimals(pool)
+    .then(rows => {
+      res.json(rows);
     })
     .catch(err => console.log(err.message));
 });
 
 app.get("/pets", (req, res) => {
   getPets(pool)
-    .then(result => {
-      res.json(result);
+    .then(rows => {
+      res.json(rows);
     })
     .catch(err => console.log(err.message));
 });
