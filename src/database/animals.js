@@ -7,8 +7,7 @@ const getAnimals = function(pool) {
   return pool.query(sql)
     .then(res => {
       return res.rows;
-    })
-    .catch(err => console.log(err.message));
+    });
 };
 
 
@@ -19,9 +18,6 @@ const addAnimal = function(pool, name) {
     .then(res => {
       console.log(res.rows);
       return res.rows[0];
-    })
-    .catch(err => {
-      console.log("catch: ", err.message);
     });
 };
 

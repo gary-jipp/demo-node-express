@@ -10,8 +10,7 @@ const getPets = function(pool) {
   return pool.query(sql)
     .then(res => {
       return res.rows;
-    })
-    .catch(err => console.log(err.message));
+    });
 };
 
 module.exports = getPets;
