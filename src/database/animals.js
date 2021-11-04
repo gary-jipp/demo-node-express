@@ -2,7 +2,7 @@
 module.exports = function(pool) {
 
   const getAnimals = function() {
-    console.log("getPets");
+    //console.log("getPets");
 
     const sql = "select * from animals";
 

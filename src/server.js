@@ -36,7 +36,7 @@ app.get("/pets", (req, res) => {
 });
 
 app.get("/hello", (req, res) => {
-  res.send("Hello Express World");
+  res.send("Hello Express World\n\n");
 });
 
 app.listen(port, () => {
