@@ -14,7 +14,7 @@ const petRoutes = require('./routes/petRoutes');
 app.use('/api/animals', animalRoutes(pool));
 app.use('/api/pets', petRoutes(pool));
 
-app.get("/hello", (req, res) => {
+app.get("/hello", (_, res) => {
   res.send("Hello Express World\n\n");
 });
 
